@@ -120,7 +120,7 @@ namespace SimpleShop.Test
 
             invoicePosition.Customer = company;
             var price = invoicePosition.Price();
-            Assert.AreEqual(price, 7.00);
+            Assert.AreEqual((double)price, 7.00, 0.01);
         }
 
         /// <summary>
