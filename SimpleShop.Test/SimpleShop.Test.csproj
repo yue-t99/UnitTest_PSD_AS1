@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>simple_shop.test</RootNamespace>
+    <RootNamespace>SimpleShop.Test</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimpleShop\SimpleShop.csproj" />
-    <ProjectReference Include="..\simple_shop\SimpleShop.csproj" />
   </ItemGroup>
 
 </Project>
