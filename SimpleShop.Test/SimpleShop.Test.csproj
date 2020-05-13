@@ -14,4 +14,15 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SampleOrder.tag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleShop\SimpleShop.csproj" />
+    <ProjectReference Include="..\simple_shop\SimpleShop.csproj" />
+  </ItemGroup>
+
 </Project>

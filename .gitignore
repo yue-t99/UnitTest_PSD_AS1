@@ -1,1 +1,4 @@
 .idea
+bin
+SimpleShop/obj
+SimpleShop.Test/obj
