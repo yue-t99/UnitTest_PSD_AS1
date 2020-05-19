@@ -1,4 +1,3 @@
-
     
 using System.Diagnostics;
 
@@ -56,7 +55,7 @@ public class ShopParser{
         public static bool ValidateFindings(KeywordPair[] findings){
             var last_keyword = new Keyword("");
             foreach (var pair in findings){
-                if (pair.Key.GetString() != last_keyword.GetString()){
+                if (pair.Key.GetString() == last_keyword.GetString()){
                     return false;
                 }
                 last_keyword = pair.Key;
