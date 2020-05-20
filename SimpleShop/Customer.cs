@@ -1,4 +1,5 @@
 namespace SimpleShop{
+    
     public class Customer{
         public const decimal ValueAddedTax = 0.19m;
         public string Name = "";

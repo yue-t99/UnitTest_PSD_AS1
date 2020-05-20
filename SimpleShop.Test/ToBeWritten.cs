@@ -1,8 +1,6 @@
 using System;
 using System.IO;
 using NUnit.Framework;
-using simple_shop.test;
-using SimpleShop;
 
 
 namespace SimpleShop.Test
@@ -18,7 +16,7 @@ namespace SimpleShop.Test
                 ItemIdentifier = 0,
                 ItemName = "SpringRoll",
                 Orders = 2,
-                SingleUnitPrice = 3.00m
+                SingleUnitPrice = 3.50m
             };
             
             pairs = new KeywordPair[]{
@@ -53,6 +51,7 @@ namespace SimpleShop.Test
         [Test]
         [Category("InvoicePosition")]
         public void Invoice_CreateOrderInput_Valid(){
+            pairs.Shuffle();
             var invoice = InvoicePosition.CreateFromPairs(pairs);
             Assert.AreEqual(invoicePosition.ItemIdentifier, invoice.ItemIdentifier);
             Assert.AreEqual(invoicePosition.ItemName.GetType(), invoice.ItemName.GetType());
@@ -66,6 +65,7 @@ namespace SimpleShop.Test
         ///  No extend the code to make sure that you also take wrong serialization into account. %%&$5 is not valid number
         /// Rating 2
         /// </summary>
+        [Test]
         public void Invoice_CreateOrderOrderedButWrongInput_DefaultValues(){
             pairs[3] = new KeywordPair(new Keyword("AmountOrdered"), "+%&/" + invoicePosition.Orders.ToString());
             pairs[4] = new KeywordPair(new Keyword("NetPrice"), invoicePosition.SingleUnitPrice.ToString() + "%&öä/");
@@ -108,16 +108,13 @@ namespace SimpleShop.Test
         /// Make it so that the companies do not pay any VAT.
         /// Rating 2-3;
         /// </summary>
+        ///
         [Test]
         [Category("InvoicePosition")]
-        public void Invoice_AmountAndCompanyAndPrice_NoVat(){
-            //Will activate as soon as Company is defined
-#if Company
-            var company = new Company()
-#else
-            var company = new Customer();
-#endif
-
+        public void Invoice_AmountAndCompanyAndPrice_NoVat()
+        {
+            //Create company if defined else default to <Customer>, function of <> will be covered in lecture 3 or 4
+            var company = TestHelpers.CreateClassIfDefinedOrDefault<Customer>("Company", "SimpleShop");
             invoicePosition.Customer = company;
             var price = invoicePosition.Price();
             Assert.AreEqual((double)price, 7.00, 0.01);
@@ -130,16 +127,12 @@ namespace SimpleShop.Test
         [Test]
         [Category("InvoicePosition")]
         public void Invoice_AmountAndStudentAndPrice_TwentyPercentBeforeVat(){
-            //Will activate as soon as Company is defined
-#if Company
-            var student = new Student()
-#else
-            var student = new Customer();
-#endif
+            //Create company if defined else default to <Customer>, function of <> will be covered in lecture 3 or 4
+            var student = TestHelpers.CreateClassIfDefinedOrDefault<Customer>("Student", "SimpleShop");
 
             invoicePosition.Customer = student;
             var price = invoicePosition.Price();
-            Assert.AreEqual((double) price, 6.64, 0.01);
+            Assert.AreEqual((double) price, 6.66, 0.01);
         }
         
         
@@ -151,12 +144,12 @@ namespace SimpleShop.Test
         [Category("InvoicePosition")]
         public void Invoice_CreateOrderInputWithStudentOrCompany_Valid(){
 
-            pairs[1] = new KeywordPair(new Keyword("CutomerType"), "Company");
+            pairs[1] = new KeywordPair(new Keyword("CustomerType"), "Company");
             var invoice = InvoicePosition.CreateFromPairs(pairs);
             //Make sure that invoice has a set customer, otherwise this will be a NullReferenceExeption
             Assert.AreEqual("SimpleShop.Company", invoice.Customer.GetType().ToString(), "");
 
-            pairs[1] = new KeywordPair(new Keyword("CutomerType"), "Student");
+            pairs[1] = new KeywordPair(new Keyword("CustomerType"), "Student");
             
             //Make sure that invoice has a set customer, otherwise this will be a NullReferenceExeption
             invoice = InvoicePosition.CreateFromPairs(pairs);
@@ -167,6 +160,7 @@ namespace SimpleShop.Test
         /// <summary>
         /// And finally the output. Complete the main function. Use the function PrintInvoice to get the proper format.
         /// This test will be ok even if you were not abel to include a working discount. More information attached to the main function.
+        /// Modify the TagFile to make Spock a student.
         /// Rating 2-3 
         /// </summary>
         [Test]
@@ -178,7 +172,7 @@ namespace SimpleShop.Test
                 
                 var output = sw.ToString();
                 var kirk_burger = output.IndexOf("James T. Kirk, Burger, 2, 19.04", StringComparison.Ordinal) >= 0;
-                var kirk_coke = output.IndexOf("James T. Kirk, Coke, 2, 8.33", StringComparison.Ordinal) >= 0;
+                var kirk_coke = output.IndexOf("James T. Kirk, Coke, 1, 8.33", StringComparison.Ordinal) >= 0;
                 var spock_ice = output.IndexOf("S'chn T'gai Spock, IceCream, 7, 37.49", StringComparison.Ordinal) >= 0;
                 var spock_ice_discout = output.IndexOf("S'chn T'gai Spock, IceCream, 7, 29.99", StringComparison.Ordinal) >= 0;
                 Assert.IsTrue(kirk_burger && kirk_coke && (spock_ice || spock_ice_discout));
