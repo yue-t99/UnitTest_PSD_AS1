@@ -172,7 +172,7 @@ namespace SimpleShop.Test
                 
                 var output = sw.ToString();
                 var kirk_burger = output.IndexOf("James T. Kirk, Burger, 2, 19.04", StringComparison.Ordinal) >= 0;
-                var kirk_coke = output.IndexOf("James T. Kirk, Coke, 1, 8.33", StringComparison.Ordinal) >= 0;
+                var kirk_coke = output.IndexOf("James T. Kirk, Coke, 1, 2.98", StringComparison.Ordinal) >= 0;
                 var spock_ice = output.IndexOf("S'chn T'gai Spock, IceCream, 7, 37.49", StringComparison.Ordinal) >= 0;
                 var spock_ice_discout = output.IndexOf("S'chn T'gai Spock, IceCream, 7, 29.99", StringComparison.Ordinal) >= 0;
                 Assert.IsTrue(kirk_burger && kirk_coke && (spock_ice || spock_ice_discout));

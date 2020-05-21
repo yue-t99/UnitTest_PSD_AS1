@@ -1,4 +1,5 @@
     
+using System;
 using System.Diagnostics;
 
 namespace  SimpleShop{
@@ -53,12 +54,17 @@ public class ShopParser{
         /// <param name="findings"></param>
         /// <returns>true is valid</returns>
         public static bool ValidateFindings(KeywordPair[] findings){
-            var last_keyword = new Keyword("");
+            var keyword_table = new string[findings.Length];
+            var head = 0;
+            
             foreach (var pair in findings){
-                if (pair.Key.GetString() == last_keyword.GetString()){
-                    return false;
+                foreach (var test in keyword_table) {
+                    if (pair.Key.GetString() == test)
+                    {
+                        return false;
+                    }
                 }
-                last_keyword = pair.Key;
+                keyword_table[head] = findings[head++].Key.GetString();
             }
             return true;
         }
