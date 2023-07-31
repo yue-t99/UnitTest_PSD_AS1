@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
+
 
 namespace SimpleShop
 {
@@ -47,8 +49,12 @@ namespace SimpleShop
                 ivp.Customer.Name, ivp.ItemName,ivp.Orders.ToString(), ivp.Price().ToString("0.##")
             }));
         }
+        
 
         public static int Main(string[] args){
+            /// Here to be correct
+            args = new string[1] { "../../../../SimpleShop.Test/SampleOrder.tag" };
+            
             if (args.Length != 1){
                 Console.WriteLine("That is not how you use this shop!");
                 return 1;
@@ -61,8 +67,33 @@ namespace SimpleShop
             }
             
             PrintWelcome();
+
             var orders = ReadFileLineByLine(args[0]);
+
             Console.WriteLine("Invoices:");
+
+            Keyword tag1 = new Keyword("ItemNumber",KeywordTypes.Int);
+            Keyword tag2 = new Keyword("ItemName", KeywordTypes.String);
+            Keyword tag3 = new Keyword("CustomerName", KeywordTypes.String);
+            Keyword tag4 = new Keyword("AmountOrdered", KeywordTypes.Int);
+            Keyword tag5 = new Keyword("NetPrice", KeywordTypes.Decimal);
+            Keyword[] tags = { tag1, tag2, tag3, tag4, tag5 };
+
+            ShopParser sp_test = new ShopParser();
+            sp_test.SetKeywords(tags);
+            
+
+            List<KeywordPair[]> Key_4_Invoice = new List<KeywordPair[]> ();
+            List<InvoicePosition> Invoices = new List<InvoicePosition>();
+            foreach (var order in orders)
+            {
+                KeywordPair[] keyword4Invoice = ShopParser.ExtractFromTAG(sp_test, order);
+                InvoicePosition invoice = InvoicePosition.CreateFromPairs(keyword4Invoice);
+                PrintInvoice(invoice);
+
+                Invoices.Add(invoice);
+                Key_4_Invoice.Add(keyword4Invoice);
+            }
 
             //#############################################################################
             //# Code to modify starts here:
@@ -71,7 +102,7 @@ namespace SimpleShop
             //# (3) Create Invoices from "orders" (which should be in TAG format)
             //# (4) Output a the sum for each customer, you must use the PrintInvoice function
             //#############################################################################
-          
+
             return 0;
         }
     }

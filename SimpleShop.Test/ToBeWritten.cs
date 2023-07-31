@@ -3,6 +3,7 @@ using System.IO;
 using NUnit.Framework;
 
 
+
 namespace SimpleShop.Test
 {
     public class ToBeWritten{
@@ -11,14 +12,14 @@ namespace SimpleShop.Test
 
         [SetUp]
         public void Setup(){
-            invoicePosition = new InvoicePosition{
+            invoicePosition = new InvoicePosition
+            {
                 Customer = new Customer(),
                 ItemIdentifier = 0,
                 ItemName = "SpringRoll",
                 Orders = 2,
                 SingleUnitPrice = 3.50m
             };
-            
             pairs = new KeywordPair[]{
                 new KeywordPair(new Keyword("ItemNumber"), invoicePosition.ItemIdentifier.ToString()),
                 new KeywordPair(new Keyword("ItemName"), invoicePosition.ItemName),
@@ -26,6 +27,8 @@ namespace SimpleShop.Test
                 new KeywordPair(new Keyword("AmountOrdered"), invoicePosition.Orders.ToString()),
                 new KeywordPair(new Keyword("NetPrice"), invoicePosition.SingleUnitPrice.ToString())
             };
+  
+            
         }
 
         
@@ -77,6 +80,7 @@ namespace SimpleShop.Test
             Assert.AreEqual(invoicePosition.Orders, invoice.Orders);
             Assert.AreEqual(invoicePosition.SingleUnitPrice, invoice.SingleUnitPrice);
         }
+        
         
         /// <summary>
         ///  Branch out Customer.CreateCustomer to provide different Customertypes. Add Company !

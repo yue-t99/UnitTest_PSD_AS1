@@ -1,9 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>task_1</RootNamespace>
+    <ApplicationIcon />
+    <StartupObject></StartupObject>
+    <Win32Resource />
   </PropertyGroup>
 
 </Project>
