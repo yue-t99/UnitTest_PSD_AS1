@@ -9,20 +9,15 @@ Inside the task, the order is chronological. Start with the first test and work 
 
 ## 1.1 Code Analysis
 First part is to analyse and understand code snippets. In the file **CodeSnippets.cs** there are two seperate independet functions provided . 
-Please look at the code an reason about it. You should formulate a the general idea what the function is doing and when it should be used. Generally this should be ~50 words. 
-Additionally you should explain the code with comments. 
+Formulate a the general idea what the function is doing and when it should be used and explain the code with comments. The comments can be found at **CodeSnippets.cs**.
 
-Try to formulate the comments as short and concicse as you see fit. 
-While rough comments can be enough, you may find yourself wanting more steps for analysis. In this case fine grained comments maybe the way to go.
 
 ## 1.2 Write UnitTests
-In file **WriteTestsHere.cs** are 12 empty UnitTests. Please complete these Unittests so the written code is tested. You are not allowed to modify the signatures !
-Also provide comments on what you want to test and why. 
+In file **WriteTestsHere.cs** are 12 UnitTests based on functions in **CodeSnippets.cs**.
+Also comments on what should be tested and why is represented in **WriteTestsHere.cs**.
 
 ## 1.3. Programming
-Turning the task around, you goal is now to provide functions based on the given Unittests in the file **ToBeWritten.cs**. Again you are not allowed to modify the given signatures. 
-However you are allowed to add new classes, methods and functions. Use a step by step approach to pass on test after another. Also look at the comments provided (also in SimpleShop.cs). 
-
+Turning the task around, the goal is now to finish functions based on the given Unittests in the file **ToBeWritten.cs**
 
 ## Grading
-Grading will include readablity, comments, code quality and test coverage. For Questions use the moodle forum and the extra FAQ that will be provided.
+Grading will be taken based on readablity, comments, code quality and test coverage. 
