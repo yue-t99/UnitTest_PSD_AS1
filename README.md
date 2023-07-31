@@ -1,4 +1,4 @@
-# Instruction for Assignment #1
+# Instruction for Unit Test course project
 The first assigment ist normally the hardest as you are not atuned to C#. Keep your head up high and if needed consult the extra (zoom) sessions. 
 I rated the tasks from 1-3 as 1 beeing the easiest 3 beeing the hardes. However, your milage may vary.
 
